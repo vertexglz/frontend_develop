@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My instruments for help my work</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="input">
+        <input type="number" id="totalLabels" placeholder="Введите количество бирок всего">
+        <br><br>
+        <input type="number" id="regularLabels" placeholder="Введите количество обычных бирок">
+        <br><br>
+        <input type="number" id="internetLabels" placeholder="Введите количество бирок для интернета">
+        <br><br>
+        <input type="number" id="unusedNonCompetitiveLabels" placeholder="Введите количество неиспользованных неконкурентных бирок">
+        <br><br>
+        <button onclick="calculatePercentages()">Рассчитать</button>
+    </div>
+
+    <h2>Результаты:</h2>
+    <p id="competitivePercentage"></p>
+    <p id="nonCompetitivePercentage"></p>
+    <p id="unusedNonCompetitivePercentage"></p>
+
+    <script>
+        function calculatePercentages() {
+            const totalLabels = parseInt(document.getElementById('totalLabels').value) || 0;
+            const regularLabels = parseInt(document.getElementById('regularLabels').value) || 0;
+            const internetLabels = parseInt(document.getElementById('internetLabels').value) || 0;
+            const unusedNonCompetitiveLabels = parseInt(document.getElementById('unusedNonCompetitiveLabels').value) || 0;
+
+            const competitiveLabels = regularLabels + internetLabels;
+            const nonCompetitiveLabels = totalLabels - competitiveLabels;
+
+            const competitivePercentage = totalLabels > 0 ? (competitiveLabels / totalLabels) * 100 : 0;
+            const nonCompetitivePercentage = totalLabels > 0 ? (nonCompetitiveLabels / totalLabels) * 100 : 0;
+            const unusedNonCompetitivePercentage = totalLabels > 0 ? (unusedNonCompetitiveLabels / totalLabels) * 100 : 0;
+
+            document.getElementById('competitivePercentage').innerText = `Процент конкурентных бирок: ${competitivePercentage.toFixed(2)}%`;
+            document.getElementById('nonCompetitivePercentage').innerText = `Процент неконкурентных бирок: ${nonCompetitivePercentage.toFixed(2)}%`;
+            document.getElementById('unusedNonCompetitivePercentage').innerText = `Процент неиспользованных неконкурентных бирок: ${unusedNonCompetitivePercentage.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
